@@ -1,0 +1,323 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct Pasien {
+    string nama;         
+    int umur;             
+    string asal_makanan;  
+    int kondisi;         
+    Pasien* next;// Pointer ke node lanjut
+};
+
+Pasien* head = NULL;// Pointer kepala linked list
+
+// konversi angka kondisi jd teks 
+string getKondisi(int a) {
+    switch(a) {
+        case 1: return "Level 1 - Ringan";    
+        case 2: return "Level 2 - Sedang";    
+        case 3: return "Level 3 - Berat";     
+        case 4: return "Level 4 - Kritis";    
+        default: return "Tidak Valid";        
+    }
+}
+
+// + baru di akhir linked list (sisip belakang)
+void tambahPasien(string nama, int umur, string asal, int kondisi) {
+    Pasien* baru = new Pasien;// Alokasi memori node baru
+    baru->nama = nama;          
+    baru->umur = umur;          
+    baru->asal_makanan = asal;  
+    baru->kondisi = kondisi;    
+    baru->next = NULL;// Node baru jd bontot
+
+    // linked list kosong,node baru = head
+    if (head == NULL) {
+        head = baru;
+    } else {
+        // Traverse 
+        Pasien* bantu = head;
+        while (bantu->next != NULL) {
+            bantu = bantu->next;
+        }
+        bantu->next = baru;// Hub akhir ke baru
+    }
+}
+
+// input data pasien dari user
+void inputPasien() {
+    string nama, asal;
+    int umur, kondisi;
+
+    cout << "-----------------------------\n";
+    cout << "        Input Pasien\n";
+    cout << "-----------------------------\n";
+    cout << "Masukkan Nama         : ";
+    cin.ignore();  
+    cin>>  nama;  
+    cout << "Masukkan Umur         : ";
+    cin >> umur;
+    cout << "Masukkan Asal Makanan : ";
+    cin.ignore();  
+    getline(cin, asal);
+    
+    // Validasi input kondisi (harus 1-4)
+    do {
+        cout << "Input Kondisi (1-4)   : ";
+        cin >> kondisi;
+        if (kondisi < 1 || kondisi > 4) {
+            cout << "Kondisi tidak valid! Harus 1-4.\n";
+        }
+    } while (kondisi < 1 || kondisi > 4);
+
+    // Panggil fungsi untuk menambahkan pasien
+    tambahPasien(nama, umur, asal, kondisi);
+    cout << "-----------------------------\n";
+    cout << "Data pasien berhasil ditambahkan!\n";
+    cout << endl;
+}
+
+// urut berdasarkan umur (asc)
+void tampilData() {
+    if (head == NULL) {
+        cout << "Data pasien kosong.\n";
+        cout << endl;
+        return;
+    }
+
+    // insertion sort pada linked list
+    Pasien* sortedHead = NULL;// Head sudah terurut
+    Pasien* posisi = head;// Pointer traverse list asli
+    
+    while (posisi != NULL) {
+        Pasien* nextNode = posisi->next;// Simpan node next
+        
+        if (sortedHead == NULL || sortedHead->umur >= posisi->umur) {
+            // awal sorted list
+            posisi->next = sortedHead;
+            sortedHead = posisi;
+        } else {
+            // Cari posisi tepat
+            Pasien* temp = sortedHead;
+            while (temp->next != NULL && temp->next->umur < posisi->umur) {
+                temp = temp->next;
+            }
+            // posisi yang ditemukan
+            posisi->next = temp->next;
+            temp->next = posisi;
+        }
+        posisi = nextNode;// Pindah ke node nex
+    }
+
+    // header 1x muncul
+    cout << "-------------------------------\n";
+    cout << "        Tampilkan Data\n";
+    cout << "-------------------------------\n";
+
+    // Tampilkan all data dari sorted list
+    Pasien* bantu = sortedHead;
+    while (bantu != NULL) {
+        cout << "Nama         : " << bantu->nama << endl;
+        cout << "Umur (th)    : " << bantu->umur << endl;
+        cout << "Asal Makanan : " << bantu->asal_makanan << endl;
+        cout << "Kondisi      : " << getKondisi(bantu->kondisi) << endl;
+        cout << "--------------------------------\n";
+        bantu = bantu->next;// Pindah ke node berikutnya
+    }
+}
+
+// kondisi paling parah
+void hapusPasien() {
+    if (head == NULL) {
+        cout << "Tidak ada pasien untuk dihapus.\n";
+        cout << endl;  
+        return;
+    }
+
+    // Cari prioritas
+    int prioritas = 0;  
+    Pasien* bantu = head;
+    while (bantu != NULL) {
+        if (bantu->kondisi > prioritas) {
+            prioritas = bantu->kondisi;// Update 
+        }
+        bantu = bantu->next;
+    }
+
+    // Cari dan hapas prioritas
+    Pasien* prev = NULL;// Pointer ke node sebelumnya
+    bantu = head;
+    while (bantu != NULL) {
+        if (bantu->kondisi == prioritas) {
+            if (prev == NULL) {
+                head = bantu->next;
+            } else {
+                prev->next = bantu->next;
+            }
+            
+            cout << "-----------------------------\n";
+            cout << "       Pasien atas nama\n";
+            cout << "-----------------------------\n";
+            cout << "Nama      | " << bantu->nama << "\n";
+            cout << "Prioritas | " << getKondisi(bantu->kondisi) << "\n";
+            cout << "-----------------------------\n";
+            cout << "Pasien telah dihapus karena selesai pengobatan\n";
+            cout << endl;
+            
+            delete bantu;// Bebaskan memori
+            return;        
+        }
+        prev = bantu;      
+        bantu = bantu->next;  
+    }
+}
+
+// FUNGSI BARU: Cari pasien berdasarkan nama
+void cariPasien() {
+    if (head == NULL) {
+        cout << "Data pasien kosong.\n";
+        cout << endl;
+        return;
+    }
+
+    string cariNama;
+    cout << "-----------------------------\n";
+    cout << "         Cari Pasien\n";
+    cout << "-----------------------------\n";
+    cout << "Masukkan nama pasien: ";
+    cin.ignore();
+    getline(cin, cariNama);
+
+    Pasien* bantu = head;
+    bool ditemukan = false;
+    int count = 0;
+
+    while (bantu != NULL) {
+        if (bantu->nama == cariNama) {
+            count++;
+            cout << "--------------------------------\n";
+            cout << "Hasil Pencarian " << count << ":\n";
+            cout << "--------------------------------\n";
+            cout << "Nama         : " << bantu->nama << endl;
+            cout << "Umur (th)    : " << bantu->umur << endl;
+            cout << "Asal Makanan : " << bantu->asal_makanan << endl;
+            cout << "Kondisi      : " << getKondisi(bantu->kondisi) << endl;
+            cout << "--------------------------------\n";
+            ditemukan = true;
+        }
+        bantu = bantu->next;
+    }
+
+    if (!ditemukan) {
+        cout << "Pasien dengan nama '" << cariNama << "' tidak ditemukan.\n";
+    }
+    cout << endl;
+}
+
+// FUNGSI BARU: Edit data pasien berdasarkan nama
+void editPasien() {
+    if (head == NULL) {
+        cout << "Data pasien kosong.\n";
+        cout << endl;
+        return;
+    }
+
+    string editNama;
+    cout << "-----------------------------\n";
+    cout << "         Edit Pasien\n";
+    cout << "-----------------------------\n";
+    cout << "Masukkan nama pasien yang akan diedit: ";
+    cin.ignore();
+    getline(cin, editNama);
+
+    Pasien* bantu = head;
+    bool ditemukan = false;
+
+    while (bantu != NULL) {
+        if (bantu->nama == editNama) {
+            ditemukan = true;
+            cout << "--------------------------------\n";
+            cout << "Data Pasien Ditemukan:\n";
+            cout << "--------------------------------\n";
+            cout << "Nama         : " << bantu->nama << endl;
+            cout << "Umur (th)    : " << bantu->umur << endl;
+            cout << "Asal Makanan : " << bantu->asal_makanan << endl;
+            cout << "Kondisi      : " << getKondisi(bantu->kondisi) << endl;
+            cout << "--------------------------------\n";
+            
+            // Input data baru
+            cout << "Masukkan data baru:\n";
+            cout << "Umur baru         : ";
+            cin >> bantu->umur;
+            cout << "Asal Makanan baru : ";
+            cin.ignore();
+            getline(cin, bantu->asal_makanan);
+            
+            // Validasi input kondisi baru
+            do {
+                cout << "Kondisi baru (1-4) : ";
+                cin >> bantu->kondisi;
+                if (bantu->kondisi < 1 || bantu->kondisi > 4) {
+                    cout << "Kondisi tidak valid! Harus 1-4.\n";
+                }
+            } while (bantu->kondisi < 1 || bantu->kondisi > 4);
+
+            cout << "--------------------------------\n";
+            cout << "Data pasien berhasil diupdate!\n";
+            cout << "--------------------------------\n";
+            break;
+        }
+        bantu = bantu->next;
+    }
+
+    if (!ditemukan) {
+        cout << "Pasien dengan nama '" << editNama << "' tidak ditemukan.\n";
+    }
+    cout << endl;
+}
+
+// Fungsi utama program
+int main() {
+    int pilihan;
+    do {
+        cout << "==================";
+        cout << "\nRumah Sakit Sehat\n";
+        cout << "==================\n";
+        cout << "1. Input Pasien\n";
+        cout << "2. Tampilkan Data\n";
+        cout << "3. Hapus Pasien\n";
+        cout << "4. Cari Pasien\n";      // MENU BARU
+        cout << "5. Edit Pasien\n";      // MENU BARU
+        cout << "6. Keluar\n";           // Diubah dari 4 jadi 6
+        cout << "==================\n";
+        cout << "Menu(1-6): ";           // Diubah dari (1-4) jadi (1-6)
+        cin >> pilihan;
+        cout << "==================\n";
+        cout << endl;
+
+        // Proses pilihan user
+        if (pilihan == 1) {
+            inputPasien();    
+        }
+        else if (pilihan == 2) {
+            tampilData();     
+        }
+        else if (pilihan == 3) {
+            hapusPasien();    
+        }
+        else if (pilihan == 4) {         // MENU BARU
+            cariPasien();     
+        }
+        else if (pilihan == 5) {         // MENU BARU
+            editPasien();     
+        }
+        else if (pilihan == 6) {         // Diubah dari 4 jadi 6
+            cout << "Keluar program...\n";  
+        }
+        else {
+            cout << "Pilihan tidak valid.\n";// Hinput ga valid
+        }
+    } while (pilihan != 6);    // Loop - Diubah dari 4 jadi 6
+    return 0;// Akhir program
+}

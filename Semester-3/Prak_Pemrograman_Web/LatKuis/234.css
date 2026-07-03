@@ -1,0 +1,386 @@
+/*123240234*/
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap');
+
+/* buat default browser */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;   
+}
+
+/* Background gradient seluruh halaman */
+body {  
+  background: linear-gradient(to right, #b795e6, #8dd0e6);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* dasar semua section */
+.container {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  margin: 20px;
+}
+
+/* =============== STYLES UNTUK FORM PENDAFTARAN =============== */
+
+/* Heading utama */
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Label */
+label {
+  display: block;
+  margin: 12px 0 6px;
+  font-weight: 500;
+  color: #444;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+}
+
+/* state input aktip*/
+input:focus, select:focus, textarea:focus {
+  border-color: #8a56ac;
+  box-shadow: 0 0 5px rgba(138,86,172,0.4);
+}
+
+textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+/* kotakan tombol */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* dasar all tombol */
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Tombol submit */
+button[type="submit"] {
+  background: #6c63ff;
+  color: white;
+}
+button[type="submit"]:hover {
+  background: #5148d8;
+}
+
+/* Tombol reset */
+button[type="reset"] {
+  background: #ddd;
+  color: #333;
+}
+button[type="reset"]:hover {
+  background: #bbb;
+}
+
+/* Tanda wajib diisi */
+.wajib { color: red; }
+
+/* =============== STYLES UNTUK THANK YOU PAGE =============== */
+#thankYouPage {
+  display: none;
+  max-width: 768px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+#thankYouPage h1 {  /*hading*/
+  color: #b795e6; 
+  margin-bottom: 20px; 
+}
+#thankYouPage ul { /*isi*/
+  list-style: disc; 
+  padding-left: 20px; 
+}
+
+/* =============== STYLES UNTUK SIGN IN =============== */
+
+/* utama */
+#container {
+  background-color: #fff;
+  border-radius: 30px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+  position: relative;
+  overflow: hidden;
+  width: 768px;
+  max-width: 100%;
+  min-height: 450px;
+  margin: 40px auto;
+  display: block;
+}
+
+/* form punya */
+.form-container {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  transition: all 0.6s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Form sign in kiri */
+.sign-in {
+  left: 0;
+  z-index: 2;
+}
+
+/* Form sign up kiri */
+.sign-up {
+  left: 0;
+  opacity: 1;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Animasi saat aktif */
+#container.active .sign-in {
+  transform: translateX(100%);
+}
+#container.active .sign-up {
+  transform: translateX(100%);
+  opacity: 1;
+  z-index: 5;
+}
+
+/* panel kanan */
+.toggle-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 150px 0 0 100px;
+  z-index: 1000;
+  transition: all 0.6s ease-in-out;
+}
+#container.active .toggle-container {
+  transform: translateX(-100%);
+  border-radius: 0 150px 100px 0;
+}
+
+/* Background */
+.toggle {
+  background: linear-gradient(to right, #5c6bc0, #ad86e4, #e8a2eb);
+  color: #fff;
+  position: relative;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  transform: translateX(0);
+  transition: all 0.6s ease-in-out;
+}
+#container.active .toggle {
+  transform: translateX(50%);
+}
+
+/* Panel kiri dan kanan */
+.toggle-panel {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 30px;
+  text-align: center;
+  top: 0;
+}
+
+/* Toggle kiri */
+.toggle-left {
+  transform: translateX(-200%);
+  transition: all 0.6s ease-in-out;
+}
+#container.active .toggle-left {
+  transform: translateX(0);
+}
+
+/* Toggle kanan */
+.toggle-right {
+  right: 0;
+  transform: translateX(0);
+  transition: all 0.6s ease-in-out;
+}
+#container.active .toggle-right {
+  transform: translateX(200%);
+}
+
+/* Form dlm sign in */
+.form-container form {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+  height: 100%;
+}
+
+/* Input fields khusus sign in*/
+.form-container input {
+  background-color: #eee;
+  border: none;
+  margin: 8px 0 20px 0;
+  padding: 10px 15px;
+  font-size: 13px;
+  border-radius: 8px;
+  width: 100%;
+  outline: none;
+}
+
+/* Tombol khusus sign in */
+.form-container button {
+  background-color: #b795e6;
+  color: #fff;
+  font-size: 12px;
+  padding: 10px 45px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.form-container button.hidden {
+  background-color: transparent;
+  border-color: #fff;
+}
+
+/* clear input */
+#clearLoginInput {
+  color: #333;
+  font-size: 13px;
+  text-decoration: none;
+  margin: 15px 0 10px;
+  display: block;
+  text-align: center;
+}
+
+/* =============== STYLES UNTUK CHECKBOX & RADIO BUTTON (Umum) =============== */
+
+/* checkbox horizontal */
+.form-checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-bottom: 12px;
+}
+
+/* Label checkbox */
+.form-checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 0;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+/* Style custom checkbox */
+input[type="checkbox"] {
+  accent-color: #b795e6;
+  margin-right: 6px;
+  width: 18px;
+  height: 18px;
+}
+
+/* Checkbox vertical layout */
+.form-checkbox-group.vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.form-checkbox-group.vertical label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Group radio button vertical */
+.form-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 8px 0;
+}
+
+/* Label radio button */
+.form-radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  margin-bottom: 0;
+}
+
+/* Style radio button */
+input[type="radio"] {
+  accent-color: #b795e6;
+  margin-right: 8px;
+  width: 18px;
+  height: 18px;
+}
+
+/* Radio button horizontal layout */
+.form-radio-group.horizontal {
+  display: flex;
+  flex-direction: row;
+  gap: 18px;
+  margin: 8px 0;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+  #container {
+    width: 98vw;
+    min-height: 480px;
+    padding: 0;
+  }
+  .form-container form {
+    padding: 0 10px;
+  }
+}

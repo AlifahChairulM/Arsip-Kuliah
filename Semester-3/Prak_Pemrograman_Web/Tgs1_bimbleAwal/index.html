@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">  
+    <link rel="stylesheet" href="css/style.css"> 
+    <title>Bimbel Jayamahe</title> 
+</head>
+
+<body>
+
+    <div class="container" id="container"> 
+        <div class="form-container sign-up"> 
+            <form id="signUpForm">
+                <h1>Create Account</h1>
+                <input type="text" placeholder="Name" id="signUpName" required>
+                <input type="email" placeholder="Email" id="signUpEmail" required>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+
+        <div class="form-container sign-in"> 
+            <form id="loginForm">
+                <h1>BIMBEL JAYAMAHE</h1> 
+                <input type="text" placeholder="Name" id="loginName" required>
+                <input type="email" placeholder="Email" id="loginEmail" required>
+                <a href="#" id="clearLoginInput">Click to clear the name and email</a>
+                <button type="submit">Sign In</button>
+            </form>
+        </div>
+
+        <div class="toggle-container"> 
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Welcome Back!</h1>
+                    <p>Silahkan buat akun terlebih dahulu untuk masuk</p>
+                    <button class="hidden" id="login">Sign In</button> 
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h2>Selamat Datang</h2>
+                    <h3>Pelajar</h3>
+                    <p>Silahkan buat akun terlebih dahulu untuk masuk</p>
+                    <button class="hidden" id="register">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+         <!-- Form pendaftaran bimbingan-->
+    <div id="bimbelFormContainer">
+        <form id="bimbelForm">
+            <h1 class="mb-4 text-center">Pendaftaran</h1>
+            <h3 class="mb-4 text-center">Bimbel</h3>
+            <div class="mb-3">
+                <label for="nama" class="form-label">Nama:</label>
+                <input type="text" class="form-control" id="nama" name="nama" required>
+            </div>
+            <div class="mb-4">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+
+            <p>Paket Bimbingan</p>
+            <div class="paket-bimbingan">
+                <label><input type="radio" name="paket" value="Reguler" required> Paket Reguler</label>
+                <label><input type="radio" name="paket" value="Intensif UTBK"> Paket Intensif UTBK</label>
+                <label><input type="radio" name="paket" value="Supercamp SBMPTN"> Paket Supercamp SBMPTN</label>
+            </div>
+
+            <p>Fasilitas Tambahan</p>
+            <div>
+                <label><input type="checkbox" name="fasilitas" value="Modul Cetak Lengkap"> Modul Cetak Lengkap</label><br>
+                <label><input type="checkbox" name="fasilitas" value="Modul PDF"> Modul PDF</label><br>
+                <label><input type="checkbox" name="fasilitas" value="Video Rekaman Kelas"> Video Rekaman Kelas</label><br>
+                <label><input type="checkbox" name="fasilitas" value="Grup Diskusi Telegram"> Grup Diskusi Telegram</label>
+            </div>
+
+            <p>Lokasi Cabang</p>
+            <select name="cabang" id="cabang" required>
+                <option value="">Pilih Lokasi Cabang</option>
+                <option value="Jakarta Pusat">Jakarta Pusat</option>
+                <option value="Surabaya">Surabaya</option>
+                <option value="Yogyakarta">Yogyakarta</option>
+                <option value="Makassar">Makassar</option>
+                <option value="Aceh">Aceh</option>
+            </select>
+
+            <p>Metode Pembayaran</p>
+            <select name="metode" id="metode" required>
+                <option value="">Pilih Metode Pembayaran</option>
+                <option value="Transfer Bank">Transfer Bank</option>
+                <option value="E-Wallet">E-Wallet</option>
+                <option value="Tunai">Tunai</option>
+            </select>
+
+            <p>Catatan Tambahan</p>
+            <textarea name="note" id="note" rows="3" placeholder="Write your additional note here"></textarea>
+
+            <div class="form-actions">
+                <button type="submit">Submit</button>
+                <button type="reset">Reset</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Halaman Thank You -->
+    <div id="thankYouPage">
+        <h1 style="color: #b795e6; margin-bottom:20px;">Terima Kasih!</h1>
+        <h3>Anda telah berhasil mendaftar Bimbel Jayamahe 🎉</h3>
+        <p style="margin:20px 0; font-size:16px; color:#333;">Kode pembayaran akan dikirimkan ke email yang Anda daftarkan.</p>
+        <div style="margin:20px auto; padding:20px; background:#f9f9f9; border:1px solid #ddd; border-radius:10px; text-align:left; max-width:500px;">
+            <h4 style="margin-bottom:10px;">Metode Pembayaran:</h4>
+            <ul style="list-style:disc; padding-left:20px; line-height:1.8;">
+                <li>Transfer Bank (BCA, BNI, Mandiri)</li>
+                <li>E-Wallet (Dana, OVO, Gopay)</li>
+                <li>Tunai di cabang terdekat</li>
+            </ul>
+        </div>
+            <p style="margin-top:20px; font-size:14px; color:#555;">Silakan lakukan pembayaran sesuai metode yang dipilih agar pendaftaran Anda aktif.</p>
+            <button onclick="location.reload()" style="margin-top:30px; padding:12px 30px; background: #b795e6; color:#fff; border:none; border-radius:8px; cursor:pointer;">Kembali ke Halaman Awal</button>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
